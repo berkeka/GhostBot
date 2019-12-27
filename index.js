@@ -1,16 +1,13 @@
 const Discord = require('discord.js');
-const fs = require('fs');
 const request = require('request');
 const cheerio = require('cheerio');
 
 const client = new Discord.Client();
 
-//Reads the token from secret.json file
-let rawdata = fs.readFileSync('secret.json');
-let secret = JSON.parse(rawdata);
-// Check for possible errors !
 
-const token = secret.token;
+
+// Discord bot token
+const token = process.env.TOKEN; // Giving the token through heroku env variables
 
 const PREFIX = '.';
 
