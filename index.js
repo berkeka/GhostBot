@@ -71,7 +71,7 @@ client.on('message', message => {
           const arg = Number(args[1]);
           if(Number.isInteger(arg)){
             message.channel.fetchMessages({ limit: arg })
-            .then(messages => message.channel.bulkDelete(arg)
+            .then(messages => message.channel.bulkDelete(arg + 1)
               .then(messages => console.log(`Bulk deleted ${messages.size} messages`))
               .catch(console.error));
           }
