@@ -8,14 +8,15 @@ const client = new Discord.Client();
 
 // Discord bot token
 const token = process.env.TOKEN; // Giving the token through heroku env variables comment it out to run the app locally
-//const token =  //Add the token directly here for running locally
+  //Add the token directly here for running locally
 
 const PREFIX = '.';
 
 const commands = [
   '.author',
   '.match      --- Günün iddaa maçları(yakında)',
-  '.play       --- Musiki çalıcı (yakında)'
+  '.play       --- Musiki çalıcı (yakında)',
+  '.clear 5    --- Komutun girildiği kanalda 5 mesaj siler.'
 ];
 
 
@@ -64,6 +65,16 @@ client.on('message', message => {
       case 'match':
         //matches = getMatches();
         //message.author.sendMessage()
+        break;
+      case 'clear':
+        //if() if user has permissions do the following
+          const arg = Number(args[1]);
+          if(Number.isInteger(arg)){
+            message.channel.fetchMessages({ limit: arg })
+            .then(messages => message.channel.bulkDelete(arg)
+              .then(messages => console.log(`Bulk deleted ${messages.size} messages`))
+              .catch(console.error));
+          }
         break;
       case 'play':
         if(message.channel === client.channels.find("name", "music")){
