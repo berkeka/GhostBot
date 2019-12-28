@@ -8,7 +8,7 @@ const client = new Discord.Client();
 
 // Discord bot token
 const token = process.env.TOKEN; // Giving the token through heroku env variables comment it out to run the app locally
-  //Add the token directly here for running locally
+ //Add the token directly here for running locally
 
 const PREFIX = '.';
 
@@ -67,7 +67,8 @@ client.on('message', message => {
         //message.author.sendMessage()
         break;
       case 'clear':
-        //if() if user has permissions do the following
+        //if user has permissions and the channel is a textchannel do the following
+        if(message.channel.type == 'text' && message.member.hasPermission('ADMINISTRATOR')){
           const arg = Number(args[1]);
           if(Number.isInteger(arg)){
             message.channel.fetchMessages({ limit: arg })
@@ -75,6 +76,8 @@ client.on('message', message => {
               .then(messages => console.log(`Bulk deleted ${messages.size} messages`))
               .catch(console.error));
           }
+        }
+
         break;
       case 'play':
         if(message.channel === client.channels.find("name", "music")){
